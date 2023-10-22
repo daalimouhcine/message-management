@@ -27,17 +27,12 @@ const CreateContent: React.FC<CreateContentProps> = ({
     handleSubmit: handleSubmitContent,
     reset: resetContent,
     watch: watchContent,
-    setError: setErrorContent,
-    clearErrors: clearErrorsContent,
     formState: { errors: errorsContent },
   } = useForm<createContentForm>();
   const {
     register: registerMessage,
     handleSubmit: handleSubmitMessage,
     reset: resetMessage,
-    watch: watchMessage,
-    setError: setErrorMessage,
-    clearErrors: clearErrorsMessage,
     formState: { errors: errorsMessage },
   } = useForm<createMessageForm>();
 
@@ -173,7 +168,7 @@ const CreateContent: React.FC<CreateContentProps> = ({
       if (result.isConfirmed) {
         // remove message from messages array and update the state with the new array of messages with the removed message and the same order and update the message numbers
         const newMessages = messages.filter(
-          (message, index) => index !== messageIndex
+          (_, index) => index !== messageIndex
         );
         setMessages(
           newMessages.map((message, index) => {

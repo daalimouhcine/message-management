@@ -126,7 +126,7 @@ const ContentDetails: React.FC<ContentDetailsProps> = ({
                   {content && content.messages?.length > 0 ? (
                     content.messages.map((message, index) => (
                       <MessageRow
-                        key={message.messageNumber}
+                        key={index}
                         index={index}
                         message={message}
                       />
