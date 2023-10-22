@@ -20,7 +20,7 @@ const CreateContent: React.FC<CreateContentProps> = ({
   removeDefaultContent,
 }) => {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [messageOnEdit, setMessageOnEdit] = useState<number>(0);
+  const [messageOnEdit, setMessageOnEdit] = useState<number | null>(null);
 
   const {
     register: registerContent,
@@ -49,8 +49,7 @@ const CreateContent: React.FC<CreateContentProps> = ({
         contentToEdit?.countryCode || contentToClone?.countryCode || "",
       description:
         contentToEdit?.description || contentToClone?.description || "",
-      messageActive:
-        contentToEdit?.messageActive || contentToClone?.messageActive || true,
+      messageActive: contentToEdit?.messageActive || false,
     });
   }, [isOpen]);
 
@@ -69,18 +68,17 @@ const CreateContent: React.FC<CreateContentProps> = ({
 
       axios
         .patch(
-          "https://at2l22ryjg.execute-api.eu-west-2.amazonaws.com/dev/surveys/" +
+          "https://6s7y94oheg.execute-api.eu-west-2.amazonaws.com/dev/" +
             contentToEdit.messageId,
           editedContent
         )
         .then((res) => {
           setReFetch();
           if (res.data.statusCode == 200) {
-            const responseMessage = JSON.parse(res.data.body);
             Swal.fire({
               position: "center",
               icon: "success",
-              title: responseMessage.message,
+              title: res.data.body.message,
               showConfirmButton: false,
               timer: 1500,
             });
@@ -106,17 +104,16 @@ const CreateContent: React.FC<CreateContentProps> = ({
       };
       axios
         .post(
-          "https://at2l22ryjg.execute-api.eu-west-2.amazonaws.com/dev/surveys",
+          "https://6s7y94oheg.execute-api.eu-west-2.amazonaws.com/dev/messages",
           newContent
         )
         .then((res) => {
           setReFetch();
           if (res.data.statusCode == 200) {
-            const responseMessage = JSON.parse(res.data.body);
             Swal.fire({
               position: "center",
               icon: "success",
-              title: responseMessage.message,
+              title: res.data.body.message,
               showConfirmButton: false,
               timer: 1500,
             });
@@ -134,54 +131,36 @@ const CreateContent: React.FC<CreateContentProps> = ({
     cancel(false);
   };
   const onSubmitMessage = (data: createMessageForm) => {
-    if (data.messageNumber) {
-      const newMessage: Message = {
-        messageNumber: data.messageNumber,
-        messageName: data.messageName,
-        messageText: data.messageText,
-      };
-
-      // edit message in messages array and update the state with the new array of messages with the edited message and the same order
-      setMessages(
-        messages.map((message) => {
-          if (message.messageNumber === data.messageNumber) {
-            return newMessage;
-          } else {
-            return message;
-          }
-        })
-      );
-      setMessageOnEdit(0);
+    if (messageOnEdit !== null) {
+      const newMessages = messages.map((message, index) => {
+        if (index === messageOnEdit) {
+          return { ...message, ...data };
+        }
+        return message;
+      });
+      setMessages(newMessages);
+      setMessageOnEdit(null);
     } else {
-      const newMessage: Message = {
-        messageNumber: messages.length + 1,
-        messageName: data.messageName,
-        messageText: data.messageText,
-      };
-
-      setMessages([...messages, newMessage]);
+      setMessages([...messages, data]);
     }
     resetMessage({ messageName: "", messageText: "" });
   };
 
-  const editMessage = (messageNumber: number) => {
-    setMessageOnEdit(messageNumber);
-    const message = messages.find(
-      (message) => message.messageNumber === messageNumber
-    );
+  const editMessage = (messageIndex: number) => {
+    setMessageOnEdit(messageIndex);
+    const message = messages[messageIndex];
     if (message) {
       resetMessage({
-        messageNumber: message.messageNumber,
         messageName: message.messageName,
         messageText: message.messageText,
       });
     }
   };
   const cancelEdit = () => {
-    setMessageOnEdit(0);
+    setMessageOnEdit(null);
     resetMessage({ messageName: "", messageText: "" });
   };
-  const removeMessage = (messageNumber: number) => {
+  const removeMessage = (messageIndex: number) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -194,7 +173,7 @@ const CreateContent: React.FC<CreateContentProps> = ({
       if (result.isConfirmed) {
         // remove message from messages array and update the state with the new array of messages with the removed message and the same order and update the message numbers
         const newMessages = messages.filter(
-          (message) => message.messageNumber !== messageNumber
+          (message, index) => index !== messageIndex
         );
         setMessages(
           newMessages.map((message, index) => {
@@ -234,7 +213,7 @@ const CreateContent: React.FC<CreateContentProps> = ({
           resetMessage({ messageName: "", messageText: "" });
           setMessages([]);
           setOpen();
-          messageOnEdit && setMessageOnEdit(0);
+          messageOnEdit && setMessageOnEdit(null);
           if (contentToEdit || contentToClone) {
             removeDefaultContent();
           }
@@ -254,9 +233,18 @@ const CreateContent: React.FC<CreateContentProps> = ({
       resetMessage({ messageName: "", messageText: "" });
       setMessages([]);
       setOpen();
-      messageOnEdit && setMessageOnEdit(0);
+      messageOnEdit && setMessageOnEdit(null);
     }
   };
+
+  useEffect(() => {
+    if (watchContent("messageActive") === true) {
+      Swal.fire(
+        "Only one content can be active at a time",
+        "If you activate this content, the other active content will be deactivated"
+      );
+    }
+  }, [watchContent("messageActive")]);
 
   return (
     <div
@@ -480,7 +468,7 @@ const CreateContent: React.FC<CreateContentProps> = ({
             className='self-end relative inline-flex items-center justify-start px-5 py-2.5 mt-5 overflow-hidden font-medium transition-all bg-white rounded hover:bg-white group'>
             <span className='w-48 h-48 rounded rotate-[-40deg] bg-green-600 absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0'></span>
             <span className='relative w-full text-left text-black transition-colors duration-300 ease-in-out group-hover:text-white'>
-              {messageOnEdit ? "Edit Message" : "Add Message"}
+              {messageOnEdit !== null ? "Edit Message" : "Add Message"}
             </span>
           </button>
         </form>
@@ -514,40 +502,44 @@ const CreateContent: React.FC<CreateContentProps> = ({
                 </thead>
                 <tbody className='bg-white'>
                   {messages.length > 0 ? (
-                    messages.map((message: Message) => (
+                    messages.map((message: Message, idx: number) => (
                       <tr
-                        key={message.messageNumber}
+                        key={idx}
                         className={`${
-                          messageOnEdit === message.messageNumber &&
-                          "border-4 border-gray-700"
+                          messageOnEdit === idx && "border-4 border-gray-700"
                         }`}>
                         <td className='px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-                          {message.messageNumber}
+                          {idx + 1}
                         </td>
                         <td className='px-4 py-4 whitespace-nowrap text-sm text-gray-500'>
                           {message.messageName}
                         </td>
+                        <td className='px-4 py-4 whitespace-nowrap text-sm text-gray-500'>
+                          <p className='max-w-4xl truncate'>
+                            {message.messageText}
+                          </p>
+                        </td>
                         <td className='flex gap-x-3 px-4 py-4 whitespace-nowrap text-sm text-gray-500'>
                           <button
                             onClick={() => {
-                              removeMessage(message.messageNumber);
+                              removeMessage(idx);
                             }}
                             className='text-red-600 hover:text-red-900'>
                             <TrashIcon className='w-5 h-5' />
                           </button>
-                          
+
                           <button
                             onClick={() => {
-                              messageOnEdit === message.messageNumber
+                              messageOnEdit === idx
                                 ? cancelEdit()
-                                : editMessage(message.messageNumber);
+                                : editMessage(idx);
                             }}
                             className={`${
-                              messageOnEdit === message.messageNumber
+                              messageOnEdit === idx
                                 ? "text-gray-600 hover:text-gray-900"
                                 : "text-green-600 hover:text-green-900"
                             }`}>
-                            {messageOnEdit === message.messageNumber ? (
+                            {messageOnEdit === idx ? (
                               <XMarkIcon className='w-5 h-5 bg-gray-200/70 rounded-md' />
                             ) : (
                               <PencilIcon className='w-5 h-5' />

@@ -13,55 +13,10 @@ import ContentDetails from "./ContentDetails";
 import CreateContent from "./CreateContent";
 import ContentActions from "./ContentActions";
 
-const contentDefault: Content[] = [
-  {
-    messageId: 1234,
-    campaign: "CPL",
-    countryCode: "ENG",
-    description: "These are the messages for October 2023",
-    updateDate: "11/10/2023",
-    createdBy: "Nigel Ryan",
-    messageActive: true,
-    messages: [
-      {
-        messageNumber: 1,
-        messageName: "agentAvailablilty",
-        messageText: "We are sorry but there are currently no agents available",
-      },
-      {
-        messageNumber: 2,
-        messageName: "errorMessage",
-        messageText: "We are sorry but an error has occurred",
-      },
-    ],
-  },
-  {
-    messageId: 1235,
-    campaign: "CPL",
-    countryCode: "ENG",
-    description: "These are the messages for October 2023",
-    updateDate: "11/10/2023",
-    createdBy: "Nigel Ryan",
-    messageActive: false,
-    messages: [
-      {
-        messageNumber: 1,
-        messageName: "agentAvailablilty",
-        messageText: "We are sorry but there are currently no agents available",
-      },
-      {
-        messageNumber: 2,
-        messageName: "errorMessage",
-        messageText: "We are sorry but an error has occurred",
-      },
-    ],
-  },
-];
-
 const ContentTable = () => {
   const [createContentOpen, setCreateContentOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [content, setContent] = useState<Content[]>(contentDefault);
+  const [content, setContent] = useState<Content[]>([]);
   const [reFetch, setReFetch] = useState(false);
   const [contentToEdit, setContentToEdit] = useState<Content | undefined>();
   const [contentToClone, setContentToClone] = useState<Content | undefined>();
@@ -73,27 +28,20 @@ const ContentTable = () => {
   const [selectAll, setSelectAll] = useState(false);
 
   useEffect(() => {
-    // setLoading(true);
+    setLoading(true);
     setSelectAll(false);
     setSelectedContents([]);
     const getContents = async () => {
       await axios
         .get(
-          "https://at2l22ryjg.execute-api.eu-west-2.amazonaws.com/dev/surveys"
+          "https://6s7y94oheg.execute-api.eu-west-2.amazonaws.com/dev/messages"
         )
-        .then((res: { data: { body: { content: Content }[] } }) => {
-          const contentsWithoutContent = res.data.body
-            .filter((item: { content: Content }) => item.content)
-            .map((item: { content: Content }) => {
-              const { content } = item;
-              return content;
-            });
-          setContent([...contentsWithoutContent]);
-
+        .then((res: { data: { body: { Items: Content[] } } }) => {
+          setContent(res.data.body.Items);
           setLoading(false);
         });
     };
-    // getContents();
+    getContents();
   }, [reFetch]);
 
   useEffect(() => {
@@ -209,7 +157,7 @@ const ContentTable = () => {
         selectedContents.forEach((content) => {
           axios
             .delete(
-              `https://at2l22ryjg.execute-api.eu-west-2.amazonaws.com/dev/surveys/${content.messageId}`
+              `https://6s7y94oheg.execute-api.eu-west-2.amazonaws.com/dev/${content.messageId}`
             )
             .then(() => {
               setSelectedContents([]);

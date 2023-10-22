@@ -76,7 +76,7 @@ const ContentDetails: React.FC<ContentDetailsProps> = ({
                 Update Date
               </h4>
               <p className='text-sm lg:text-base text-gray-500'>
-                {new Date(content ? content.updateDate : "").toDateString()}
+                {content?.updateDate}
               </p>
             </div>
             <div className='w-1/3'>
