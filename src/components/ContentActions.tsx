@@ -43,14 +43,13 @@ const ContentActions: React.FC<ContentActionsProps> = ({
         setShowLoader(true);
         axios
           .delete(
-            "https://at2l22ryjg.execute-api.eu-west-2.amazonaws.com/dev/surveys/" +
+            "https://6s7y94oheg.execute-api.eu-west-2.amazonaws.com/dev/" +
               messageId
           )
           .then((res) => {
             if (res.data.statusCode == 200) {
               setShowLoader(false);
-              const responseMessage = JSON.parse(res.data.body);
-              Swal.fire("Deleted!", responseMessage.message, "success");
+              Swal.fire("Deleted!", res.data.body.message, "success");
               setReFetch();
             }
           });
