@@ -1,5 +1,4 @@
 export type Message = {
-  messageNumber: number;
   messageName: string;
   messageText: string;
 };
