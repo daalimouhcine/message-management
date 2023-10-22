@@ -246,7 +246,7 @@ const CreateContent: React.FC<CreateContentProps> = ({
     <div
       className={`h-[90vh] sm:h-[85vh] w-screen sm:w-[90vw] flex flex-col gap-y-3 px-5 py-8 sm:p-10 rounded-t-3xl bg-gray-400 fixed z-30 ${
         !isOpen ? "-bottom-full" : "-bottom-0"
-      } transition-all ease-out duration-500 left-1/2 -translate-x-1/2 overflow-y-scroll hide-scroll-bar`}>
+      } left-1/2 -translate-x-1/2 overflow-y-scroll hide-scroll-bar`}>
       <div className='bg-white h-3 w-28 rounded-full absolute top-2 left-1/2 -translate-x-1/2'></div>
       <form onSubmit={handleSubmitContent(onSubmitContent)}>
         <div className='w-full flex justify-between items-center'>
@@ -256,28 +256,14 @@ const CreateContent: React.FC<CreateContentProps> = ({
           <div className='flex gap-x-2'>
             <button
               type='submit'
-              className='relative px-5 py-2.5 overflow-hidden font-medium text-green-500 bg-gray-100 border border-gray-100 rounded-lg shadow-inner group'>
-              <span className='absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-green-400 group-hover:w-full ease'></span>
-              <span className='absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-green-400 group-hover:w-full ease'></span>
-              <span className='absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-green-400 group-hover:h-full ease'></span>
-              <span className='absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-green-400 group-hover:h-full ease'></span>
-              <span className='absolute inset-0 w-full h-full duration-300 delay-300 bg-green-500 opacity-0 group-hover:opacity-100'></span>
-              <span className='relative transition-colors duration-300 delay-200 group-hover:text-white ease'>
-                {contentToEdit ? "Save" : "Create"}
-              </span>
+              className='relative px-5 py-2.5 overflow-hidden font-medium text-green-500 bg-gray-100 border-2 border-gray-100 hover:border-green-500 rounded-lg shadow-inner group'>
+              {contentToEdit ? "Save" : "Create"}
             </button>
             <button
               type='button'
               onClick={() => cancel(true)}
-              className='relative px-5 py-2.5 overflow-hidden font-medium text-red-500 bg-gray-100 border border-gray-100 rounded-lg shadow-inner group'>
-              <span className='absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-red-400 group-hover:w-full ease'></span>
-              <span className='absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-red-400 group-hover:w-full ease'></span>
-              <span className='absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-red-400 group-hover:h-full ease'></span>
-              <span className='absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-red-400 group-hover:h-full ease'></span>
-              <span className='absolute inset-0 w-full h-full duration-300 delay-300 bg-red-500 opacity-0 group-hover:opacity-100'></span>
-              <span className='relative transition-colors duration-300 delay-200 group-hover:text-white ease'>
-                Cancel
-              </span>
+              className='relative px-5 py-2.5 overflow-hidden font-medium text-red-500 bg-gray-100 border-2 border-gray-100 hover:border-red-500 rounded-lg shadow-inner group'>
+              Cancel
             </button>
           </div>
         </div>
@@ -463,11 +449,8 @@ const CreateContent: React.FC<CreateContentProps> = ({
           </div>
           <button
             type='submit'
-            className='self-end relative inline-flex items-center justify-start px-5 py-2.5 mt-5 overflow-hidden font-medium transition-all bg-white rounded hover:bg-white group'>
-            <span className='w-48 h-48 rounded rotate-[-40deg] bg-green-600 absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0'></span>
-            <span className='relative w-full text-left text-black transition-colors duration-300 ease-in-out group-hover:text-white'>
-              {messageOnEdit !== null ? "Edit Message" : "Add Message"}
-            </span>
+            className='self-end relative inline-flex items-center justify-start px-5 py-2.5 mt-5 overflow-hidden font-medium transition-all bg-white rounded hover:bg-gray-100 border-2 border-gray-800 group'>
+            {messageOnEdit !== null ? "Edit Message" : "Add Message"}
           </button>
         </form>
         <div className='w-full'>

@@ -25,7 +25,7 @@ const ContentDetails: React.FC<ContentDetailsProps> = ({
     <div
       className={`h-[90vh] sm:h-[85vh] w-screen sm:w-[90vw] flex flex-col gap-y-3 px-5 py-8 sm:p-10 rounded-t-3xl bg-gray-400 fixed z-30 ${
         !isOpen ? "-bottom-full" : "-bottom-0"
-      } transition-all ease-out duration-500 left-1/2 -translate-x-1/2 overflow-y-scroll hide-scroll-bar`}>
+      } left-1/2 -translate-x-1/2 overflow-y-scroll hide-scroll-bar`}>
       <div className='bg-white h-3 w-28 rounded-full absolute top-2 left-1/2 -translate-x-1/2'></div>
       <div className='w-full flex justify-between items-center'>
         <h3 className='font-bold text-xl lg:text-3xl text-gray-900'>
@@ -125,11 +125,7 @@ const ContentDetails: React.FC<ContentDetailsProps> = ({
                 <tbody className='bg-white'>
                   {content && content.messages?.length > 0 ? (
                     content.messages.map((message, index) => (
-                      <MessageRow
-                        key={index}
-                        index={index}
-                        message={message}
-                      />
+                      <MessageRow key={index} index={index} message={message} />
                     ))
                   ) : (
                     <tr>
