@@ -232,14 +232,15 @@ const CreateContent: React.FC<CreateContentProps> = ({
     }
   };
 
-  useEffect(() => {
-    if (watchContent("messageActive") === true) {
+  const validateActive = () => {
+    if (watchContent("messageActive")) {
       Swal.fire(
         "Only one content can be active at a time",
         "If you activate this content, the other active content will be deactivated"
       );
+      return;
     }
-  }, [watchContent("messageActive")]);
+  };
 
   return (
     <div
@@ -327,7 +328,9 @@ const CreateContent: React.FC<CreateContentProps> = ({
                       <input
                         type='checkbox'
                         id='messageActive'
-                        {...registerContent("messageActive")}
+                        {...registerContent("messageActive", {
+                          onChange: validateActive,
+                        })}
                         className='sr-only'
                       />
                       <div className='h-5 w-14 rounded-full bg-[#E5E7EB] shadow-inner'></div>
