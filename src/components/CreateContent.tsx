@@ -320,9 +320,9 @@ const CreateContent: React.FC<CreateContentProps> = ({
 
   return (
     <div
-      className={`h-[90vh] sm:h-[85vh] w-screen sm:w-[90vw] flex flex-col gap-y-3 px-5 py-8 sm:p-10  bg-gray-400 fixed z-30 ${
-        !isOpen ? "-bottom-full" : "-bottom-0"
-      } left-1/2 -translate-x-1/2 overflow-y-scroll hide-scroll-bar`}>
+      className={`h-[90vh] sm:h-[85vh] w-screen sm:w-[90vw] flex flex-col gap-y-3 px-5 py-8 sm:p-10 rounded-sm bg-gray-400 fixed z-30 ${
+        !isOpen ? "-top-full" : "top-1/2"
+      } left-1/2 transition-all ease-out duration-100 -translate-x-1/2 -translate-y-1/2 overflow-y-scroll hide-scroll-bar`}>
       <div className='bg-white h-3 w-28  absolute top-2 left-1/2 -translate-x-1/2'></div>
       <form onSubmit={handleSubmitContent(onSubmitContent)}>
         <div className='w-full flex justify-between items-center'>
