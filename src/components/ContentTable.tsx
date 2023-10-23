@@ -25,11 +25,9 @@ const ContentTable = () => {
   const [openDetails, setOpenDetails] = useState(false);
   const [contentDetails, setContentDetails] = useState<Content | undefined>();
   const [selectedContents, setSelectedContents] = useState<Content[]>([]);
-  const [selectAll, setSelectAll] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    setSelectAll(false);
     setSelectedContents([]);
     const getContents = async () => {
       await axios
@@ -124,23 +122,6 @@ const ContentTable = () => {
         {status ? "Active" : "Inactive"}
       </span>
     );
-  };
-
-  const onSelectionChange = (e: any) => {
-    const value = e.value;
-    setSelectedContents(value);
-    setSelectAll(value.length === tableData.length);
-  };
-  const onSelectAllChange = (e: any) => {
-    const selectAll = e.checked;
-
-    if (selectAll) {
-      setSelectedContents(tableData);
-      setSelectAll(true);
-    } else {
-      setSelectAll(false);
-      setSelectedContents([]);
-    }
   };
 
   const deleteAll = () => {
@@ -292,13 +273,12 @@ const ContentTable = () => {
         loading={loading}
         emptyMessage='No Contents Found'
         scrollHeight='500px'
-        selection={selectedContents}
-        onSelectionChange={onSelectionChange}
-        selectAll={selectAll}
-        onSelectAllChange={onSelectAllChange}
-        cellSelection={false}
-        selectionMode='multiple'>
-        <Column selectionMode='multiple' headerStyle={{ width: "3rem" }} />
+        onRowClick={(rowData) => {
+          const content = rowData.data as Content;
+          setContentDetails(content);
+          setOpenDetails(true);
+          console.log(content);
+        }}>
         <Column
           field='campaign'
           header='Campaign'
