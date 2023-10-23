@@ -23,7 +23,7 @@ const ContentDetails: React.FC<ContentDetailsProps> = ({
 
   return (
     <div
-      className={`h-fit w-screen sm:w-[90vw] flex flex-col rounded-sm gap-y-3 px-5 py-8 sm:p-10 bg-gray-400 fixed z-30 ${
+      className={`max-h-[90vh] h-fit w-screen sm:w-[90vw] flex flex-col rounded-sm gap-y-3 px-5 py-8 sm:p-10 bg-gray-400 fixed z-30 ${
         !isOpen ? "-top-full" : "top-1/2"
       } left-1/2 transition-all ease-out duration-100 -translate-x-1/2 -translate-y-1/2 overflow-y-scroll hide-scroll-bar`}>
       <div className='bg-white h-3 w-28  absolute top-2 left-1/2 -translate-x-1/2'></div>
