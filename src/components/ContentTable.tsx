@@ -116,7 +116,7 @@ const ContentTable = () => {
     const status = content.messageActive;
     return (
       <span
-        className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+        className={`px-2 inline-flex text-xs leading-5 font-semibold ${
           status ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
         }`}>
         {status ? "Active" : "Inactive"}
@@ -178,7 +178,7 @@ const ContentTable = () => {
       <div className='sm:flex sm:items-center'>
         <div className='sm:flex-auto relative'>
           <div
-            className={`flex items-center justify-between gap-x-5 px-5 py-3 max-sm:px-3 max-sm:py-1.5 bg-indigo-500/70 rounded-md absolute bottom-0 max-sm:bottom-3 ${
+            className={`flex items-center justify-between gap-x-5 px-5 py-3 max-sm:px-3 max-sm:py-1.5 bg-indigo-500/70  absolute bottom-0 max-sm:bottom-3 ${
               selectedContents.length ? "left-0" : "-left-full"
             }`}>
             <p className='text-white font-semibold'>
@@ -187,7 +187,7 @@ const ContentTable = () => {
             </p>
             <button
               onClick={() => deleteAll()}
-              className='rounded-md px-3.5 py-1.5 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-white hover:border-red-600 shadow-md  text-white'>
+              className=' px-3.5 py-1.5 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-white hover:border-red-600 shadow-md  text-white'>
               Delete All
             </button>
           </div>
@@ -225,7 +225,7 @@ const ContentTable = () => {
             {...register("search")}
             id='search'
             placeholder='Keyword Search'
-            className='px-5 pl-10 w-3/3 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-sm sm:leading-6'
+            className='px-5 pl-10 w-3/3 border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-sm sm:leading-6'
           />
         </div>
         <div className='max-w-1/3 flex max-md:ml-auto gap-x-8 max-sm:gap-x-5 items-center justify-center'>
@@ -257,7 +257,7 @@ const ContentTable = () => {
           <button
             onClick={() => setCreateContentOpen(true)}
             type='button'
-            className='rounded-md px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-indigo-700 text-indigo-700'>
+            className=' px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-indigo-700 text-indigo-700'>
             Add Content
           </button>
         </div>
@@ -305,6 +305,7 @@ const ContentTable = () => {
         <Column
           field='messages.length'
           header='Messages Number'
+          alignHeader={"center"}
           sortable
           style={{ textAlign: "center", width: "200px" }}
           className='text-sm'></Column>
@@ -322,6 +323,8 @@ const ContentTable = () => {
         <Column
           field='Actions'
           header='Actions'
+          bodyClassName='text-center'
+          alignHeader={"center"}
           className='Actions'
           body={(rowData: Content) => {
             return (
@@ -338,8 +341,7 @@ const ContentTable = () => {
                 setOpenEdit={() => setCreateContentOpen(true)}
               />
             );
-          }}
-          style={{ textAlign: "center" }}></Column>
+          }}></Column>
       </DataTable>
     </div>
   );

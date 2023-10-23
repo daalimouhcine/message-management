@@ -1,5 +1,5 @@
 const Loader = ({ display }: { display: boolean }) => {
-  let circleCommonClasses = "h-8 w-8 border-4 border-gray-800 rounded-full";
+  let circleCommonClasses = "h-8 w-8 border-4 border-gray-800";
 
   return (
     <div

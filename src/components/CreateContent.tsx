@@ -320,10 +320,10 @@ const CreateContent: React.FC<CreateContentProps> = ({
 
   return (
     <div
-      className={`h-[90vh] sm:h-[85vh] w-screen sm:w-[90vw] flex flex-col gap-y-3 px-5 py-8 sm:p-10 rounded-t-3xl bg-gray-400 fixed z-30 ${
+      className={`h-[90vh] sm:h-[85vh] w-screen sm:w-[90vw] flex flex-col gap-y-3 px-5 py-8 sm:p-10  bg-gray-400 fixed z-30 ${
         !isOpen ? "-bottom-full" : "-bottom-0"
       } left-1/2 -translate-x-1/2 overflow-y-scroll hide-scroll-bar`}>
-      <div className='bg-white h-3 w-28 rounded-full absolute top-2 left-1/2 -translate-x-1/2'></div>
+      <div className='bg-white h-3 w-28  absolute top-2 left-1/2 -translate-x-1/2'></div>
       <form onSubmit={handleSubmitContent(onSubmitContent)}>
         <div className='w-full flex justify-between items-center'>
           <h3 className='font-bold text-xl lg:text-3xl text-gray-900'>
@@ -332,18 +332,18 @@ const CreateContent: React.FC<CreateContentProps> = ({
           <div className='flex gap-x-2'>
             <button
               type='submit'
-              className='relative px-5 py-2.5 overflow-hidden font-medium text-green-500 bg-gray-100 border-2 border-gray-100 hover:border-green-500 rounded-lg shadow-inner group'>
+              className='relative px-5 py-2.5 overflow-hidden font-medium text-green-500 bg-gray-100 border-2 border-gray-100 hover:border-green-500  shadow-inner group'>
               {contentToEdit ? "Save" : "Create"}
             </button>
             <button
               type='button'
               onClick={() => cancel(true)}
-              className='relative px-5 py-2.5 overflow-hidden font-medium text-red-500 bg-gray-100 border-2 border-gray-100 hover:border-red-500 rounded-lg shadow-inner group'>
+              className='relative px-5 py-2.5 overflow-hidden font-medium text-red-500 bg-gray-100 border-2 border-gray-100 hover:border-red-500  shadow-inner group'>
               Cancel
             </button>
           </div>
         </div>
-        <div className='w-full h-fit flex flex-col gap-y-3 bg-gray-50 rounded-lg p-5 pb-8 mt-5'>
+        <div className='w-full h-fit flex flex-col gap-y-3 bg-gray-50  p-5 pb-8 mt-5'>
           <p className='text-gray-800 text-sm font-medium'>
             1. Start with setting up your content information
           </p>
@@ -395,15 +395,15 @@ const CreateContent: React.FC<CreateContentProps> = ({
                         })}
                         className='sr-only'
                       />
-                      <div className='h-5 w-14 rounded-full bg-[#E5E7EB] shadow-inner'></div>
+                      <div className='h-5 w-14  bg-[#E5E7EB] shadow-inner'></div>
                       <div
-                        className={`shadow-md absolute -top-1 flex h-7 w-7 items-center justify-center rounded-full transition-all ease-linear duration-200 ${
+                        className={`shadow-md absolute -top-1 flex h-7 w-7 items-center justify-center  transition-all ease-linear duration-200 ${
                           watchContent("messageActive")
                             ? "!bg-white left-1/2"
                             : "bg-white left-0"
                         }`}>
                         <span
-                          className={`active h-4 w-4 rounded-full  ${
+                          className={`active h-4 w-4   ${
                             watchContent("messageActive")
                               ? "bg-blue-500"
                               : "bg-[#E5E7EB]"
@@ -476,7 +476,7 @@ const CreateContent: React.FC<CreateContentProps> = ({
           </div>
         </div>
       </form>
-      <div className='mt-8 flex flex-col p-1 bg-gray-100 rounded-lg'>
+      <div className='mt-8 flex flex-col p-1 bg-gray-100 '>
         <div className='flex justify-between items-center px-5 pt-3'>
           <p className='text-gray-800 text-sm font-medium'>2. Add Message</p>
         </div>
@@ -525,13 +525,13 @@ const CreateContent: React.FC<CreateContentProps> = ({
           </div>
           <button
             type='submit'
-            className='self-end relative inline-flex items-center justify-start px-5 py-2.5 mt-5 overflow-hidden font-medium transition-all bg-white rounded hover:bg-gray-100 border-2 border-gray-800 group'>
+            className='self-end relative inline-flex items-center justify-start px-5 py-2.5 mt-5 overflow-hidden font-medium transition-all bg-white  hover:bg-gray-100 border-2 border-gray-800 group'>
             {messageOnEdit !== null ? "Edit Message" : "Add Message"}
           </button>
         </form>
         <div className='w-full'>
           <div className='w-full p-3 '>
-            <div className='overflow-x-scroll shadow ring-1 ring-black ring-opacity-5 md:rounded-lg'>
+            <div className='overflow-x-scroll shadow ring-1 ring-black ring-opacity-5 '>
               <table className='min-w-full divide-y divide-gray-300'>
                 <thead className='bg-gray-50'>
                   <tr>
@@ -589,7 +589,7 @@ const CreateContent: React.FC<CreateContentProps> = ({
                                 : "text-green-600 hover:text-green-900"
                             }`}>
                             {messageOnEdit === idx ? (
-                              <XMarkIcon className='w-5 h-5 bg-gray-200/70 rounded-md' />
+                              <XMarkIcon className='w-5 h-5 bg-gray-200/70 ' />
                             ) : (
                               <PencilIcon className='w-5 h-5' />
                             )}
