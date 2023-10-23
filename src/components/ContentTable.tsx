@@ -145,6 +145,14 @@ const ContentTable = () => {
 
   const deleteAll = () => {
     Swal.fire({
+      showClass: {
+        popup: "swal2-noanimation",
+        backdrop: "swal2-noanimation",
+        icon: "swal2-noanimation",
+      },
+      hideClass: {
+        popup: "",
+      },
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
@@ -167,11 +175,19 @@ const ContentTable = () => {
               console.log(err);
             });
         });
-        Swal.fire(
-          "Deleted!",
-          "The selected contents has been deleted.",
-          "success"
-        );
+        Swal.fire({
+          showClass: {
+            popup: "swal2-noanimation",
+            backdrop: "swal2-noanimation",
+            icon: "swal2-noanimation",
+          },
+          hideClass: {
+            popup: "",
+          },
+          title: "Deleted!",
+          text: "The selected contents has been deleted.",
+          icon: "success",
+        });
       }
     });
   };

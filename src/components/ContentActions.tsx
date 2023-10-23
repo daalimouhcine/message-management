@@ -31,6 +31,14 @@ const ContentActions: React.FC<ContentActionsProps> = ({
 
   const removeContent = (messageId: number) => {
     Swal.fire({
+      showClass: {
+        popup: "swal2-noanimation",
+        backdrop: "swal2-noanimation",
+        icon: "swal2-noanimation",
+      },
+      hideClass: {
+        popup: "",
+      },
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
@@ -49,7 +57,19 @@ const ContentActions: React.FC<ContentActionsProps> = ({
           .then((res) => {
             if (res.data.statusCode == 200) {
               setShowLoader(false);
-              Swal.fire("Deleted!", res.data.body.message, "success");
+              Swal.fire({
+                showClass: {
+                  popup: "swal2-noanimation",
+                  backdrop: "swal2-noanimation",
+                  icon: "swal2-noanimation",
+                },
+                hideClass: {
+                  popup: "",
+                },
+                title: "Deleted!",
+                text: res.data.body.message,
+                icon: "success",
+              });
               setReFetch();
             }
           });

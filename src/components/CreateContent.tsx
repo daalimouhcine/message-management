@@ -71,6 +71,14 @@ const CreateContent: React.FC<CreateContentProps> = ({
           setReFetch();
           if (res.data.statusCode == 200) {
             Swal.fire({
+              showClass: {
+                popup: "swal2-noanimation",
+                backdrop: "swal2-noanimation",
+                icon: "swal2-noanimation",
+              },
+              hideClass: {
+                popup: "",
+              },
               position: "center",
               icon: "success",
               title: res.data.body.message,
@@ -79,6 +87,14 @@ const CreateContent: React.FC<CreateContentProps> = ({
             });
           } else {
             Swal.fire({
+              showClass: {
+                popup: "swal2-noanimation",
+                backdrop: "swal2-noanimation",
+                icon: "swal2-noanimation",
+              },
+              hideClass: {
+                popup: "",
+              },
               position: "center",
               icon: "error",
               title: "Something Went Wrong",
@@ -106,6 +122,14 @@ const CreateContent: React.FC<CreateContentProps> = ({
           setReFetch();
           if (res.data.statusCode == 200) {
             Swal.fire({
+              showClass: {
+                popup: "swal2-noanimation",
+                backdrop: "swal2-noanimation",
+                icon: "swal2-noanimation",
+              },
+              hideClass: {
+                popup: "",
+              },
               position: "center",
               icon: "success",
               title: res.data.body.message,
@@ -114,6 +138,14 @@ const CreateContent: React.FC<CreateContentProps> = ({
             });
           } else {
             Swal.fire({
+              showClass: {
+                popup: "swal2-noanimation",
+                backdrop: "swal2-noanimation",
+                icon: "swal2-noanimation",
+              },
+              hideClass: {
+                popup: "",
+              },
               position: "center",
               icon: "error",
               title: "Something Went Wrong",
@@ -157,6 +189,14 @@ const CreateContent: React.FC<CreateContentProps> = ({
   };
   const removeMessage = (messageIndex: number) => {
     Swal.fire({
+      showClass: {
+        popup: "swal2-noanimation",
+        backdrop: "swal2-noanimation",
+        icon: "swal2-noanimation",
+      },
+      hideClass: {
+        popup: "",
+      },
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
@@ -176,7 +216,19 @@ const CreateContent: React.FC<CreateContentProps> = ({
           })
         );
         console.log(messages);
-        Swal.fire("Removed!", "Your message has been removed.", "success");
+        Swal.fire({
+          showClass: {
+            popup: "swal2-noanimation",
+            backdrop: "swal2-noanimation",
+            icon: "swal2-noanimation",
+          },
+          hideClass: {
+            popup: "",
+          },
+          title: "Removed!",
+          text: "Your message has been removed.",
+          icon: "success",
+        });
       }
     });
   };
@@ -191,6 +243,14 @@ const CreateContent: React.FC<CreateContentProps> = ({
         watchContent("messageActive"))
     ) {
       Swal.fire({
+        showClass: {
+          popup: "swal2-noanimation",
+          backdrop: "swal2-noanimation",
+          icon: "swal2-noanimation",
+        },
+        hideClass: {
+          popup: "",
+        },
         title: "Are you sure?",
         text: "You won't be able to revert this!",
         icon: "warning",
@@ -212,11 +272,19 @@ const CreateContent: React.FC<CreateContentProps> = ({
           if (contentToEdit || contentToClone) {
             removeDefaultContent();
           }
-          Swal.fire(
-            "Canceled!",
-            "Your operation has been canceled.",
-            "success"
-          );
+          Swal.fire({
+            showClass: {
+              popup: "swal2-noanimation",
+              backdrop: "swal2-noanimation",
+              icon: "swal2-noanimation",
+            },
+            hideClass: {
+              popup: "",
+            },
+            title: "Canceled!",
+            text: "Your operation has been canceled",
+            icon: "success",
+          });
         }
       });
     } else {
@@ -234,10 +302,18 @@ const CreateContent: React.FC<CreateContentProps> = ({
 
   const validateActive = () => {
     if (watchContent("messageActive")) {
-      Swal.fire(
-        "Only one content can be active at a time",
-        "If you activate this content, the other active content will be deactivated"
-      );
+      Swal.fire({
+        showClass: {
+          popup: "swal2-noanimation",
+          backdrop: "swal2-noanimation",
+          icon: "swal2-noanimation",
+        },
+        hideClass: {
+          popup: "",
+        },
+        title: "Only one content can be active at a time",
+        text: "If you activate this content, the other active content will be deactivated",
+      });
       return;
     }
   };
