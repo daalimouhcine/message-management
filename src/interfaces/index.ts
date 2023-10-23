@@ -17,7 +17,6 @@ export interface ContentActionsProps {
   setContentToEdit: (content: Content) => void;
   setContentToClone: (content: Content) => void;
   setOpenEdit: () => void;
-  index?: number;
 }
 
 export interface ContentRowProps {

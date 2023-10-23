@@ -350,7 +350,6 @@ const ContentTable = () => {
                 setContentToEdit={editContent}
                 setContentToClone={cloneContent}
                 setOpenEdit={() => setCreateContentOpen(true)}
-                index={0}
               />
             );
           }}
