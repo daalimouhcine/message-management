@@ -278,12 +278,10 @@ const ContentTable = () => {
           const rowData = event.data as Content;
           const excludedColumn = "Actions";
           const target = event.originalEvent.target as HTMLElement;
-          console.log(target);
           // Check if the click event is not on the excluded column
           if (!target || !target.classList.contains(excludedColumn)) {
             setContentDetails(rowData);
             setOpenDetails(true);
-            console.log(rowData);
           }
         }}>
         <Column
