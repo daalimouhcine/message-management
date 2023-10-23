@@ -12,9 +12,6 @@ const MessageRow = ({
       className={`hover:bg-gray-100 ${
         index % 2 === 0 ? undefined : "bg-gray-50"
       }`}>
-      <td className='px-3 py-4 text-sm font-medium text-gray-900'>
-        {index + 1}
-      </td>
       <td className='whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6'>
         {message.messageName}
       </td>

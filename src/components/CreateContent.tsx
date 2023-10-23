@@ -538,11 +538,6 @@ const CreateContent: React.FC<CreateContentProps> = ({
                     <th
                       scope='col'
                       className='py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6'>
-                      N°
-                    </th>
-                    <th
-                      scope='col'
-                      className='py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6'>
                       Message Name
                     </th>
                     <th
@@ -565,9 +560,6 @@ const CreateContent: React.FC<CreateContentProps> = ({
                         className={`${
                           messageOnEdit === idx && "border-4 border-gray-700"
                         }`}>
-                        <td className='px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-                          {idx + 1}
-                        </td>
                         <td className='px-4 py-4 whitespace-nowrap text-sm text-gray-500'>
                           {message.messageName}
                         </td>

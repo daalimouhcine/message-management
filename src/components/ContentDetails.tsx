@@ -29,7 +29,7 @@ const ContentDetails: React.FC<ContentDetailsProps> = ({
       <div className='bg-white h-3 w-28 rounded-full absolute top-2 left-1/2 -translate-x-1/2'></div>
       <div className='w-full flex justify-between items-center'>
         <h3 className='font-bold text-xl lg:text-3xl text-gray-900'>
-          content Details: {content?.messageId}
+          Content Details:
         </h3>
         <div className='flex gap-x-2 items-center'>
           <ContentActions
@@ -81,7 +81,7 @@ const ContentDetails: React.FC<ContentDetailsProps> = ({
             </div>
             <div className='w-1/3'>
               <h4 className='text-lg lg:text-xl font-semibold text-gray-900'>
-                content Status
+                Content Status
               </h4>
               <p className='text-sm lg:text-base text-gray-500'>
                 {content?.messageActive ? "Active" : "Inactive"}
@@ -105,11 +105,6 @@ const ContentDetails: React.FC<ContentDetailsProps> = ({
               <table className='min-w-full divide-y divide-gray-300'>
                 <thead className='bg-gray-50'>
                   <tr>
-                    <th
-                      scope='col'
-                      className='py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6'>
-                      N°
-                    </th>
                     <th
                       scope='col'
                       className='py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6'>

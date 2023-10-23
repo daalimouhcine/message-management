@@ -309,19 +309,19 @@ const ContentTable = () => {
           field='countryCode'
           header='Country Code'
           sortable
-          style={{ maxWidth: "250px" }}
+          style={{ maxWidth: "200px" }}
           className='truncate text-sm'></Column>
         <Column
           field='description'
           header='Description'
           sortable
-          style={{ maxWidth: "200px" }}
+          style={{ maxWidth: "300px" }}
           className='truncate text-sm'></Column>
         <Column
           field='messages.length'
           header='Messages Number'
           sortable
-          style={{ minWidth: "104px", textAlign: "center" }}
+          style={{ textAlign: "center", width: "200px" }}
           className='text-sm'></Column>
         <Column
           field='Status'
