@@ -80,17 +80,16 @@ const ContentActions: React.FC<ContentActionsProps> = ({
   };
 
   return (
-    <div className='relative '>
+    <div className='relative Actions'>
       <Loader display={showLoader} />
-      <div
-        className={`w-fit flex gap-x-1 `}>
+      <div className={`w-fit flex gap-x-1 Actions`}>
         {displayDetails && (
           <button
             onClick={() => {
               viewDetails && viewDetails();
             }}
             className='w-full flex items-center justify-center px-1 py-1 rounded-md text-xs text-gray-700 bg-white hover:bg-gray-100 hover:text-gray-900'>
-            <EyeIcon className='w-4 h-4  inline-block text-green-400' />
+            <EyeIcon className='w-4 h-4 pointer-events-none inline-block text-green-400' />
           </button>
         )}
         <button
@@ -98,21 +97,21 @@ const ContentActions: React.FC<ContentActionsProps> = ({
             editContent(content!);
           }}
           className='w-full flex items-center justify-center px-1 py-1 rounded-md text-xs text-gray-700 bg-white hover:bg-gray-100 hover:text-gray-900'>
-          <PencilSquareIcon className='w-4 h-4  inline-block text-blue-400' />
+          <PencilSquareIcon className='w-4 h-4 pointer-events-none inline-block text-blue-400' />
         </button>
         <button
           onClick={() => {
             cloneContent(content!);
           }}
           className='w-full flex items-center justify-center px-1 py-1 rounded-md text-xs text-gray-700 bg-white hover:bg-gray-100 hover:text-gray-900'>
-          <DocumentDuplicateIcon className='w-4 h-4  inline-block text-yellow-400' />
+          <DocumentDuplicateIcon className='w-4 h-4 pointer-events-none inline-block text-yellow-400' />
         </button>
         <button
           onClick={() => {
             removeContent(content!.messageId!);
           }}
           className='w-full flex items-center justify-center px-1 py-1 rounded-md text-xs text-gray-700 bg-white hover:bg-gray-100 hover:text-gray-900'>
-          <TrashIcon className='w-4 h-4  inline-block text-red-400' />
+          <TrashIcon className='w-4 h-4 pointer-events-none inline-block text-red-400' />
         </button>
       </div>
     </div>

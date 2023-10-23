@@ -273,11 +273,18 @@ const ContentTable = () => {
         loading={loading}
         emptyMessage='No Contents Found'
         scrollHeight='500px'
-        onRowClick={(rowData) => {
-          const content = rowData.data as Content;
-          setContentDetails(content);
-          setOpenDetails(true);
-          console.log(content);
+        onRowClick={(event) => {
+          // Change the argument to DataTableRowClickEvent
+          const rowData = event.data as Content;
+          const excludedColumn = "Actions";
+          const target = event.originalEvent.target as HTMLElement;
+          console.log(target);
+          // Check if the click event is not on the excluded column
+          if (!target || !target.classList.contains(excludedColumn)) {
+            setContentDetails(rowData);
+            setOpenDetails(true);
+            console.log(rowData);
+          }
         }}>
         <Column
           field='campaign'
@@ -317,6 +324,7 @@ const ContentTable = () => {
         <Column
           field='Actions'
           header='Actions'
+          className='Actions'
           body={(rowData: Content) => {
             return (
               <ContentActions
