@@ -212,7 +212,7 @@ const ContentTable = () => {
         removeDefaultContent={removeEditContent}
       />
       <div className='w-full flex flex-wrap-reverse justify-between gap-5 mb-5'>
-        <div className='w-2/3 sm:w-1/3 mt-2 relative'>
+        <div className='w-fit mt-2 relative'>
           <MagnifyingGlassIcon className='absolute w-5 h-5 text-gray-400 left-3 translate-y-1/2' />
           {searchValue && (
             <XMarkIcon
@@ -225,10 +225,10 @@ const ContentTable = () => {
             {...register("search")}
             id='search'
             placeholder='Keyword Search'
-            className='px-5 pl-10 w-2/3 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-sm sm:leading-6'
+            className='px-5 pl-10 w-3/3 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-sm sm:leading-6'
           />
         </div>
-        <div className='max-w-1/3 max-md:w-fit flex max-md:ml-auto gap-x-8 max-sm:gap-x-5 items-center justify-center'>
+        <div className='max-w-1/3 flex max-md:ml-auto gap-x-8 max-sm:gap-x-5 items-center justify-center'>
           <p className='font-semibold'>Filter by Status:</p>
           <div className='flex items-center'>
             <input
