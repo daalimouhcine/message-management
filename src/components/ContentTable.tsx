@@ -8,7 +8,6 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
-import Swal from "sweetalert2";
 import ContentDetails from "./ContentDetails";
 import CreateContent from "./CreateContent";
 import ContentActions from "./ContentActions";
@@ -24,11 +23,9 @@ const ContentTable = () => {
   const [tableData, setTableData] = useState<Content[]>(content || []);
   const [openDetails, setOpenDetails] = useState(false);
   const [contentDetails, setContentDetails] = useState<Content | undefined>();
-  const [selectedContents, setSelectedContents] = useState<Content[]>([]);
 
   useEffect(() => {
     setLoading(true);
-    setSelectedContents([]);
     const getContents = async () => {
       await axios
         .get(
@@ -124,76 +121,8 @@ const ContentTable = () => {
     );
   };
 
-  const deleteAll = () => {
-    Swal.fire({
-      showClass: {
-        popup: "swal2-noanimation",
-        backdrop: "swal2-noanimation",
-        icon: "swal2-noanimation",
-      },
-      hideClass: {
-        popup: "",
-      },
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "red",
-      cancelButtonColor: "green",
-      confirmButtonText: "Yes, delete all!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        selectedContents.forEach((content) => {
-          axios
-            .delete(
-              `https://6s7y94oheg.execute-api.eu-west-2.amazonaws.com/dev/${content.messageId}`
-            )
-            .then(() => {
-              setSelectedContents([]);
-              setReFetch(!reFetch);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        });
-        Swal.fire({
-          showClass: {
-            popup: "swal2-noanimation",
-            backdrop: "swal2-noanimation",
-            icon: "swal2-noanimation",
-          },
-          hideClass: {
-            popup: "",
-          },
-          title: "Deleted!",
-          text: "The selected contents has been deleted.",
-          icon: "success",
-        });
-      }
-    });
-  };
-
   return (
-    <div className='px-4 sm:px-6 lg:px-8 mt-20'>
-      <div className='sm:flex sm:items-center'>
-        <div className='sm:flex-auto relative'>
-          <div
-            className={`flex items-center justify-between gap-x-5 px-5 py-3 max-sm:px-3 max-sm:py-1.5 bg-indigo-500/70  absolute bottom-0 max-sm:bottom-3 ${
-              selectedContents.length ? "left-0" : "-left-full"
-            }`}>
-            <p className='text-white font-semibold'>
-              {selectedContents.length} Content
-              {selectedContents.length > 1 && "s"} Selected
-            </p>
-            <button
-              onClick={() => deleteAll()}
-              className=' px-3.5 py-1.5 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-white hover:border-red-600 shadow-md  text-white'>
-              Delete All
-            </button>
-          </div>
-        </div>
-      </div>
-
+    <div className='px-4 sm:px-6 lg:px-8 mt-10'>
       <ContentDetails
         content={contentDetails}
         isOpen={openDetails}
@@ -211,34 +140,24 @@ const ContentTable = () => {
         contentToClone={contentToClone}
         removeDefaultContent={removeEditContent}
       />
-      <div className='flex flex-col items-center mb-5'>
-        <div className='w-full flex flex-wrap-reverse justify-between gap-5 mb-5'>
-          <div className='w-fit mt-2 relative'>
-            <MagnifyingGlassIcon className='absolute w-5 h-5 text-gray-400 left-3 translate-y-1/2' />
-            {searchValue && (
-              <XMarkIcon
-                onClick={() => resetSearch()}
-                className='absolute w-5 h-5 text-gray-400 right-3 translate-y-1/2 cursor-pointer '
-              />
-            )}
-            <input
-              type='text'
-              {...register("search")}
-              id='search'
-              placeholder='Keyword Search'
-              className='px-5 pl-10 w-3/3 border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-sm sm:leading-6'
+      <div className='w-full flex flex-wrap-reverse justify-between gap-5 mb-5'>
+        <div className='w-1/4 mt-2 relative'>
+          <MagnifyingGlassIcon className='absolute w-5 h-5 text-gray-400 left-3 translate-y-1/2' />
+          {searchValue && (
+            <XMarkIcon
+              onClick={() => resetSearch()}
+              className='absolute w-5 h-5 text-gray-400 right-3 translate-y-1/2 cursor-pointer '
             />
-          </div>
-          <div className='max-w-1/3 max-md:ml-auto'>
-            <button
-              onClick={() => setCreateContentOpen(true)}
-              type='button'
-              className=' px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-indigo-700 text-indigo-700'>
-              Add Content
-            </button>
-          </div>
+          )}
+          <input
+            type='text'
+            {...register("search")}
+            id='search'
+            placeholder='Keyword Search'
+            className='px-5 pl-10 w-3/3 border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-sm sm:leading-6'
+          />
         </div>
-        <div className='max-w-1/3 flex gap-x-8 max-sm:gap-x-5 items-center justify-center'>
+        <div className='max-w-2/4 flex gap-x-8 max-sm:gap-x-5 items-center justify-center'>
           <p className='font-semibold'>Filter by Status:</p>
           <div className='flex items-center'>
             <input
@@ -262,6 +181,14 @@ const ContentTable = () => {
               Inactive
             </label>
           </div>
+        </div>
+        <div className='w-1/4 flex justify-end'>
+          <button
+            onClick={() => setCreateContentOpen(true)}
+            type='button'
+            className=' px-3.5 py-2 m-1 overflow-hidden relative group cursor-pointer border-2 font-medium border-indigo-700 text-indigo-700'>
+            Add Content
+          </button>
         </div>
       </div>
       <DataTable
